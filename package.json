@@ -7,11 +7,17 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@popperjs/core": "^2.0.6",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.5.0",
+    "firebase": "^7.9.1",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.2.0",
+    "sass": "^1.26.0",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
