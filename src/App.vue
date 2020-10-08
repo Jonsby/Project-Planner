@@ -7,6 +7,7 @@
 
 <script>
 import NavBar from './components/NavBar'
+
 import { global } from './main'
 
 export default {
