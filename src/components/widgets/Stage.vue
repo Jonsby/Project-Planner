@@ -1,10 +1,10 @@
 <template>
   <div class="widget-item project-widget">
     <dropdown-search
-      :title="'Project'"
-      :type="'project'"
-      :dataGroupName="'projectGroup'"
-      :dataGroup="userProjectGroup"
+      :title="title"
+      :type="type"
+      :dataGroupName="dataGroupName"
+      :dataGroup="userStageGroup"
       :componentIndex="componentIndex"
       :componentValue="componentValue"
       :updateComponentValueFn="updateComponentValueFn"
@@ -19,7 +19,10 @@ import DropdownSearch from "./widgetComponents/dropdownSearch";
 export default {
   data() {
     return {
-      userProjectGroup: Array,
+      title: "Stage",
+      type: "stage",
+      dataGroupName: "stageGroup",
+      userStageGroup: Array,
     };
   },
   props: {
@@ -29,10 +32,9 @@ export default {
   },
   components: { DropdownSearch },
   beforeMount() {
-    this.userProjectGroup = global.getUsersProjects();
+    this.title = global.widgets.stage.header;
+    this.dataGroupName = global.widgets.stage.property;
+    this.userStageGroup = global.getUsersStageGroup();
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

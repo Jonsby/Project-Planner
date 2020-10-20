@@ -1,5 +1,5 @@
 <template>
-  <div class="widget-container row">
+  <div class="widget-container d-inline-flex">
     <!-- <div class="widget col" v-for="(widget, index) in task.widgets" :key="index">
             <component :is="widget.type" :componentIndex="index" :componentValue="widget.value" :updateComponentValueFn="updateComponentValue"></component>
         </div> -->
@@ -11,7 +11,7 @@
       <!-- {{ widgetSettings[widgetColumn.type].type }} - {{ index }} {{ outputWidgetValue(widgetColumn) }} -->
       <component
         :is="widgetSettings[widgetColumn.type].type"
-        :componentIndex="index"
+        :componentIndex="widgetColumn.id"
         :componentValue="outputWidgetValue(widgetColumn)"
         :updateComponentValueFn="updateComponentValue"
       ></component>
@@ -24,10 +24,14 @@
 
 <script>
 import Project from "./widgets/Project";
-import Title from "./widgets/Title";
 import Text from "./widgets/Text";
 import Number from "./widgets/Number";
+import Date from "./widgets/Date";
+import Time from "./widgets/Time";
+import DateTime from "./widgets/DateTime";
 import Status from "./widgets/Status";
+import Stage from "./widgets/Stage";
+import Dropdown from "./widgets/Dropdown";
 import db from "../firebase/init";
 import { global } from "../main";
 
@@ -41,10 +45,24 @@ export default {
     return {};
   },
   methods: {
-    updateComponentValue(index, newValue) {
-      //TODO: Database - Complete API UPDATE
+    updateComponentValue(index, type, newValue) {
       const newWidgets = this.task.widgets;
-      newWidgets[index].value = newValue;
+
+      let widgetValueExists = false;
+      for (let i = 0; i < newWidgets.length; i++) {
+        if (newWidgets[i].columnId === index) {
+          newWidgets[i].value = newValue;
+          widgetValueExists = true;
+        }
+      }
+
+      if (!widgetValueExists) {
+        newWidgets.push({
+          columnId: index,
+          type: type,
+          value: newValue,
+        });
+      }
       db.collection("Tasks")
         .doc(this.task.id)
         .update({
@@ -76,10 +94,15 @@ export default {
   },
   mounted() {},
   components: {
-    appTitle: Title,
+    appProject: Project,
     appText: Text,
     appNumber: Number,
+    appDate: Date,
+    appTime: Time,
+    appDateTime: DateTime,
     appStatus: Status,
+    appStage: Stage,
+    appDropdown: Dropdown,
   },
 };
 </script>

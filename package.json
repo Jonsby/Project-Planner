@@ -17,8 +17,10 @@
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.5.0",
     "firebase": "7.22.0",
+    "sass": "1.27.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.1.5"
+    "vue-router": "^3.1.5",
+    "vuedraggable": "2.24.1"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.2.0",
